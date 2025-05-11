@@ -1,0 +1,951 @@
+\documentclass[a4paper, 14pt]{extarticle}
+
+\usepackage[english, russian]{babel}
+\usepackage{fancyhdr, fancybox}
+\usepackage{geometry}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsmath}\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{hyperref}
+\usepackage{tikz}
+
+\geometry{a4paper,total={170mm,257mm},left=1cm,right=1cm,top=2cm,bottom=1.5cm}
+
+%opening
+\title{Факультатив <<Структурная теория матриц>>}
+
+% Клонтитулы
+\fancyhead[R]{\textbf{Структурная теория матриц}}
+\fancyhead[L]{\textbf{НИУ ВШЭ}}
+
+% Теоремы
+\theoremstyle{definition}
+\newtheorem{definition}{Определение}
+\newtheorem{theorem}{Теорема}
+\newtheorem{note}{Замечание}
+\newtheorem{lemma}{Лемма}
+\newtheorem{conseq}{Следствие}
+\newtheorem{example}{Пример}
+\newtheorem{state}{Утверждение}
+\newtheorem{exec}{Упражнение}
+
+\setcounter{tocdepth}{5}
+
+\begin{document}
+\pagestyle{fancy}
+\maketitle
+
+\newpage
+\tableofcontents
+
+\newpage
+
+\section{Первая лекция}
+
+\textbf{Вопрос курса:} Каким образом можно описать структуру конечномерных алгебр, используя матрицы, и какими свойствами будут обладать данные описания?
+\begin{definition}
+	 Пусть \(\mathcal{A}\) - векторное пространство над полем \(\mathbb{F}\) снабжённое операцией \[\cdot : \mathcal{A} \times \mathcal{A} \rightarrow \mathcal{A} \text{ (умножение)}\]
+	 тогда \(\mathcal{A}\) является алгеброй, если \(\forall x, y, z \in \mathcal{A}\) и \(\forall a, b \in \mathbb{F}\) верно:
+	 \begin{itemize}
+	 	\item \(x(y + z) = xy + xz\)
+	 	\item \((x + y)z = xz + yz\)
+	 	\item \((ax) \cdot (by) = (ab)(x \cdot y)\)
+	 \end{itemize}
+\end{definition}
+
+\begin{note}
+	В этом курсе рассматриваются ассоциативные алгебры, если не оговорено иное.
+\end{note}
+
+\begin{example}
+	\leavevmode
+	\begin{enumerate}
+		\item Многочлены \(\mathbb{F}[x]\); \(\operatorname{dim}\mathbb{F}[x] = \infty\)
+		\item Алгебра кватернионов: \[\mathbb{H} = \{a + bi + cj + dk | a, b, c, d \in \mathbb{R}; i^2 = j^2 = k^2 = ijk = -1\}\]
+		\item Групповые алгебры. Рассмотрим группу \(G\) и поле \(\mathbb{F}\), тогда: \[\mathbb{F}[G]= \left\{\sum\limits_{i = 1}^{|G|} \lambda_i g_i \left|\right. \lambda_i \in \mathbb{F}, g_i \in G \right\}; \operatorname{dim} \mathbb{F}[G] = |G|\]
+		\item Матричные алгебры: Пусть \(\mathcal{A} \subseteq M_n(\mathbb{F})\) и \(\forall a, b \in \mathcal{A};\ \forall \lambda \in \mathbb{F}\) замкнуто по операциям:
+		\begin{itemize}
+			\item \(a + b \in \mathcal{A}\)
+			\item \(\lambda a \in \mathcal{A}\)
+			\item \(a \cdot b \in \mathcal{A}\)
+		\end{itemize}
+	\end{enumerate}
+\end{example}
+
+\paragraph{Матричное представление конечномерных алгебр}
+
+\begin{state}
+	Любая конечномерная алгебра изоморфна некоторой конечной матричной алгебре.
+\end{state}
+
+Пусть \(\mathcal{A}\) - алгебра, \(\{e_1, \dots, e_n\}\) - базис в \(\mathcal{A}\)
+Умножение элементов \(\mathcal{A}\) слева на \(e_i\) является линейным отображением \(\forall a, b \in \mathcal{A};\ \forall \lambda \in \mathbb{F}\):
+\begin{itemize}
+	\item \(e_i(a + b) = e_i a + e_i b\)
+	\item \(e_i(\lambda a) = \lambda(e_i a)\)
+\end{itemize}
+\(e_i\) можно поставить в соответствие матрицу \(A_{e_i}\) в базисе \(\{e_1, \dots, e_n\}\). При этом:
+
+\begin{itemize}
+	\item \(A_{a + b} = A_a + A_b\)
+	\item \(A_{ab} = A_a \cdot A_b\)
+	\item \(A_{\lambda a} = \lambda A_a\)
+\end{itemize}
+
+\begin{example}
+	\(\mathbb{H}\) с базисом \(\{1, i, j, k\}\)
+	\[A_1 = E;\ A_i = \left( 
+	\begin{array}{cccc}
+	0&-1&0&0\\
+	1&0&0&0\\
+	0&0&0&-1\\
+	0&0&1&0
+	\end{array} 
+	\right);\ A_j = \left( 
+	\begin{array}{cccc}
+		0&0&-1&0\\
+		0&0&0&1\\
+		1&0&0&0\\
+		0&-1&0&0
+	\end{array} 
+	\right);\ A_k = \left( 
+	\begin{array}{cccc}
+		0&0&0&-1\\
+		0&0&-1&0\\
+		0&1&0&0\\
+		1&0&0&0
+	\end{array} 
+	\right)\]
+	\[\mathbb{H} = \{a + bi + cj + dk | a, b, c, d \in \mathbb{R}\} \simeq \left\{
+		\left(
+			\left. \begin{array}{cccc}
+				a&-b&-c&-d\\
+				b&a&-d&c\\
+				c&d&a&-b\\
+				d&-c&b&a
+			\end{array}
+		\right) \right| a, b, c, d \in \mathbb{R}
+	\right\}\]
+\end{example}
+
+\paragraph{Матричные алгебры}
+
+\begin{example}
+	\leavevmode
+	\begin{enumerate}
+		\item (Блочно-)диагональные матрицы:
+		\[\left(
+			\begin{array}{ccc}
+				a_{11}&\hdots&0\\
+				\vdots&\ddots&\vdots\\
+				0&\dots&a_{nn}
+			\end{array}
+		\right) a_{ii} \in \mathbb{F},\ \operatorname{dim} \mathcal{A} = n\]
+		\[\left(
+			\begin{array}{c|c|c}
+				A_{11}&\hdots&0\\
+				\hline
+				\vdots&\ddots&\vdots\\
+				\hline
+				0&\dots&A_{nn}
+			\end{array}
+		\right) A_{ii} \in M_{n_i}(\mathbb{F}),\ \operatorname{dim} \mathcal{A} = \sum\limits_{i=1}^n n^2_i\]
+		
+		\item (Блочно-)верхнетреугольные матрицы:
+		\[
+			\left(
+				\begin{array}{ccc}
+					a_{11}&&*\\
+					&\ddots&\\
+					0&&a_{nn}
+				\end{array}
+			\right) \text{ если \(j > i\) то } a_{ij} = 0 \text{, иначе } a_{ij} \in \mathbb{F},\ \operatorname{dim} \mathcal{A} = \frac{n(n + 1)}{2}
+		\]
+		\[
+			\left(
+				\begin{array}{c|c|c|c}
+					A_{11}&*&\hdots&*\\
+					\hline
+					0&A_{22}&\hdots&*\\
+					\hline
+					\vdots&\vdots&\ddots&\vdots\\
+					\hline
+					0&0&\hdots&A_{nn}
+				\end{array}
+			\right) A_{ii} \in M_n(\mathbb{F}),\ \operatorname{dim} \mathcal{A} = \frac{n^2 + \sum\limits_{i=1}^n n_i^2}{2}
+		\]
+		
+		\item Алгебра порожденная некоторым \(S = \{a_1, \dots, a_k\} \subseteq M_n(\mathbb{F}).\)
+		\[\left. \mathcal{L}(S) = \left\{ \sum\limits_{i=1}^{t \leqslant k} \lambda_i a_i \right| \lambda_i \in \mathbb{F},\ a_i \in S \right\}\]
+	\end{enumerate}
+\end{example}
+
+\begin{exec}
+	Является ли алгеброй: \[\mathcal{A} = \left\{ A \in M_n(\mathbb{F}) \left| \sum \right. a_{ij} = 0,\ n \geqslant 2 \right\} ?\]
+\end{exec}
+
+\begin{proof}[Решение]
+	Нет, не является. Рассмотрим оба возможных случая:
+	\begin{itemize}
+		\item \(\operatorname{char} \mathbb{F} \neq 2:\)
+		\[\mathcal{A} \ni a = \left(
+			\begin{array}{cc}
+				1&0\\
+				0&-1
+			\end{array}
+		\right) \text{, но } a^2 = \left(
+		\begin{array}{cc}
+			1&0\\
+			0&1
+		\end{array}
+		\right) \notin \mathcal{A}\]
+		
+		\item \(\operatorname{char} \mathbb{F} = 2:\)
+		\[b = \left(
+			\begin{array}{ccc}
+				0&0&1\\
+				0&0&1\\
+				1&0&1\\
+			\end{array}
+		\right),\ c = \left(
+		\begin{array}{ccc}
+			1&0&0\\
+			1&0&0\\
+			0&0&0\\
+		\end{array}
+		\right),\ bc = \left(
+		\begin{array}{ccc}
+			0&0&0\\
+			0&0&0\\
+			1&0&0\\
+		\end{array}
+		\right) \text{, где } b, c \in \mathcal{A},\ bc \notin \mathcal{A}\]
+	\end{itemize}
+\end{proof}
+
+\begin{exec}\label{ex1_2}
+	Является ли алгеброй множество всех матриц, с одним фиксированным собственным вектором \(v \neq 0\)?
+\end{exec}
+
+\begin{proof}[Решение]
+	Да, является. Рассмотрим \(A, B\) такие что: \(Av = \lambda v\) и \(Bv = \mu v:\)
+	\[(A + B)v = (\lambda + \mu)v;\ ABv = \lambda\mu v;\ (\tau A)v = \tau\lambda v\]
+\end{proof}
+
+\begin{exec}
+	Найти размерность алгебры из \hyperref[ex1_2]{\textbf{Упр. 2}}.
+\end{exec}
+
+\begin{proof}[Решение]
+	Переведем матрицы в алгебре из \hyperref[ex1_2]{\textbf{Упр. 2}} в базис \(\{v, e_1, \dots, e_n\}\), тогда:
+	\[\mathcal{A}_v = \left\{
+		\left(
+			\left. 
+				\begin{array}{cccc}
+					\lambda&a_{12}&\hdots&a_{1n}\\
+					0&a_{22}&\hdots&a_{2n}\\
+					\vdots&\vdots&\ddots&\vdots\\
+					0&a_{2n}&\hdots&a_{nn}
+				\end{array}
+			 \right) \right| \lambda \in \mathbb{F}
+	\right\} \Rightarrow \operatorname{dim} \mathcal{A}_v = n^2 - n + 1\]
+\end{proof}
+
+\begin{exec}
+	Найти \(k\)-мерную подалгебру в алгебре \(\operatorname{M}_4(\mathbb{R})\).
+	\begin{itemize}
+		\item \(k = 7\)
+		\item \(k = 12\) и в матрицах нет полностью нулевых строк/столбцов.
+	\end{itemize}
+\end{exec}
+
+\begin{proof}[Решение]
+	\leavevmode
+	\begin{itemize}
+		\item \(k = 7\)
+		\[\left\{
+		\left(
+		\left. \begin{array}{cccc}
+			a&b&c&d\\
+			0&0&e&f\\
+			0&0&0&g\\
+			0&0&0&0\\
+		\end{array}
+		\right) \right| a, b, c, d, e, f, g \in \mathbb{R}
+		\right\}\]
+		
+		\item \(k = 12\) и в мтрицах нет полностью нулевых строк/столбцов.
+			\[\left\{
+		\left(
+		\left. \begin{array}{cccc}
+			a_{11}&a_{12}&a_{13}&a_{14}\\
+			a_{21}&a_{22}&a_{23}&a_{24}\\
+			a_{31}&a_{32}&a_{33}&a_{34}\\
+			a_{31}&a_{32}&a_{33}&a_{34}\\
+		\end{array}
+		\right) \right| a_{ij} \in \mathbb{R}
+		\right\}\]
+	\end{itemize}
+\end{proof}
+
+\newpage
+
+\section{Вторая лекция}
+
+\begin{exec}
+	Доказать, что множество циркулянтов:
+	\[C_n = \left\{
+		\left(
+			\begin{array}{cccc}
+				a_1&a_2&\hdots&a_n\\
+				a_n&a_1&\hdots&a_{n-1}\\
+				\vdots&\vdots&\ddots&\vdots\\
+				a_{2}&a_3&\hdots&a_1
+			\end{array}
+		\right)
+	\right\}\]
+	является алгеброй. Найти \(\operatorname{dim} C_n(\mathbb{F})\)
+\end{exec}
+
+\begin{proof}[Решение]
+	Найдем \(A \in \text{M}_n(\mathbb{F})\) такую что:
+	\(C_n(\mathbb{F}) = \mathcal{L}(\{A\})\).
+	\[A = \left(
+		\begin{array}{cccc}
+			0&1&\hdots&0\\
+			0&\ddots&\ddots&\vdots\\
+			\vdots&&\ddots&1\\
+			0&0&\hdots&0
+		\end{array}
+	\right);\ A^2 = \left(
+		\begin{array}{ccccc}
+			0&0&1&\hdots&0\\
+			0&\ddots&\ddots&\ddots&\vdots\\
+			\vdots&&\ddots&\ddots&1\\
+			\vdots&&&\ddots&0\\
+			0&0&0&\hdots&0
+		\end{array}
+	\right);\ \dots;\ A^n = E \]
+	\[\forall k \in \mathbb{N} : A^k \in \{A, \dots, A^n\} \text{, так как } A^n = E \Rightarrow \mathcal{L}(\{A\}) = \{A_1, \dots, A_n\} = C_n(\mathbb{F})\]
+	\[A, \dots, A^n \text{ - линейно независимы.} \Rightarrow \operatorname{dim} C_n(\mathbb{F}) = n\]
+\end{proof}
+
+\paragraph{Инвариантные подпространства}
+
+\begin{definition}
+	Подпространство \(V \subseteq \mathbb{F}^n\) называется инвариантным относительно множества матриц \(\mathcal{A} \subseteq \operatorname{M}_n(\mathbb{F})\) (\(\mathcal{A}\) -- инвариантным) если \(\forall v \in V\) и \(\forall A \in \mathcal{A}: Av \in V\).
+\end{definition}
+
+\begin{example}
+	\leavevmode
+	\begin{itemize}
+		\item Подпространства \(\{0\}\) и \(\mathbb{F}^n\ \mathcal{A}\) -- инвариантны для любого \(\mathcal{A}\).
+		\item \(v \in \mathbb{F}^n: \langle v \rangle\ \mathcal{A}\) -- инвариантно \(\Leftrightarrow v\) - общий собственный вектор для матриц из \(\mathcal{A}\)
+	\end{itemize}
+\end{example}
+
+\begin{exec}
+	Пусть \(V\) - подпространство \(\mathbb{F}^n,\ \operatorname{dim} V = k:\)
+	\[\mathcal{A}_v = \{A \in \operatorname{M}_n(\mathbb{F}) | V \mathcal{A} \text{ -- инваринтно}\}\]
+	Доказать, что \(\mathcal{A}_v\) - алгебра. \(\operatorname{dim} \mathcal{A}_v\)?
+\end{exec}
+
+\begin{proof}[Решение]
+	\(\{e_1, \dots, e_k\}\) - базис в \(V\), дополним до базиса в \(\mathbb{F}^n : \{e_1, \dots, e_k, \dots, e_n\}\). Тогда:
+	\[\mathcal{A}_v = \left\{
+		\left(
+			\begin{array}{c|c}
+				*&*\\
+				\hline
+				0&*
+			\end{array}
+		\right) \in \operatorname{M}_n(\mathbb{F})
+	\right\} \Rightarrow \operatorname{dim} \mathcal{A}_v = n^2 - k(n-k)\]
+	где \(\mathcal{A}_v \text{ - блочно-верхнетреугольная алгебра}.\)
+\end{proof}
+
+\begin{exec}
+	Найти нетривиальное общее инвариантное подпространство для матриц \(C_n(\mathbb{F})\).
+\end{exec}
+
+\begin{proof}[Решение]
+	\[v = \left(\begin{array}{c}
+		1\\
+		1\\
+		\vdots\\
+		1
+	\end{array}\right) \text{ --- собственный вектор } \forall A \in C_n(\mathbb{F}) \Rightarrow\]
+	\(\Rightarrow \langle v \rangle \text{ --- нетривиальное \(C_n(\mathbb{F})\) - инвариантное подпространство}\)
+\end{proof}
+
+\paragraph{Неприводимые множества матриц}
+
+\begin{note}
+	В этой лекции далее будем считать, что алгебра содержит \(1(E)\).
+\end{note}
+
+\begin{definition}
+	Подмножество \(\mathcal{A} \subseteq \operatorname{M}_n(\mathbb{F})\) называется неприводимым, если не существует нетривиальных \(\mathcal{A}\) - инвариантных подпространств в \(\mathbb{F}^n\).
+\end{definition}
+
+\begin{lemma} \label{lm2_1}
+	Пусть \(\mathcal{A}\) --- неприводимая подалгебра \(\operatorname{M}_n(\mathbb{F})\). Тогда \(\forall v \neq 0 \in \mathbb{F}^n :\) \[\mathcal{A}v = \{Av | A \in \mathcal{A}\} = \mathbb{F}^n.\]
+\end{lemma}
+
+\begin{proof}[Доказательство]
+	\(\mathcal{A}v\) --- подпространство в \(\mathbb{F}^n\). Рассмотрим \(u \in \mathcal{A}v\). Для \(u\) верно: \[\exists B \in \mathcal{A}: u = Bv \Rightarrow \forall A \in \mathcal{A} : Au = \underbrace{AB}_{AB \in \mathcal{A}} \cdot\ v \in \mathcal{A}v\]
+	тогда \(\mathcal{A}v\) - инвариантно, при этом:
+	\[\mathcal{A}v \neq \{0\} \text{, так как \(E \in \mathcal{A} \Rightarrow\) так как \(\mathcal{A}\) - неприводима, то } \mathcal{A}v = \mathbb{F}^n.\]
+\end{proof}
+
+\begin{lemma} \label{lm2_2}
+	Пусть \(\mathcal{A}\) --- неприводимая подалгебра \(\operatorname{M}_n(\mathbb{F})\), тогда \(\forall v \neq 0;\ v \in \mathbb{F}^n : \)
+	\[v^T\mathcal{A} = \{v^TA | A \in \mathcal{A}\} = (\mathbb{F}^n)^T.\]
+\end{lemma}
+
+\begin{proof}[Доказательство]
+	\[V = v^T\mathcal{A} \subset (\mathbb{F}^n)^T\]
+	\[\operatorname{Ann}V = \{u \in V | Vu = 0\}\]
+	так как \(V \neq (\mathbb{F}^n)^T\), то \(\operatorname{Ann}V\) --- нетривиальное подпространство \(\mathbb{F}^n\)
+	\[\forall u \in \operatorname{Ann}V\ \forall A \in \mathcal{A}: V \cdot Au = v^T \underbrace{\mathcal{A} \cdot A}_{\mathcal{A}A = \mathcal{A}}u = 0 \Rightarrow Au \in \operatorname{Ann}V\]
+	получаем, что: \(\operatorname{Ann}V\) нетривиальное \(\mathcal{A}\) - инвариантное подпространство \(\mathbb{F}^n\), но \(\mathcal{A}\) --- неприводимая алгебра \(\Rightarrow \bot\).
+\end{proof}
+
+\begin{lemma} \label{lm2_3}
+	\(A \in \operatorname{M}_n(\mathbb{F}),\ \mathbb{F}\) - алгебраически замкнуто. \(V \subseteq \mathbb{F}^n A\) - инвариантно. Тогда в \(V\) содержится собственный вектор матрицы \(A\).
+\end{lemma}
+
+\begin{proof}[Доказательство]
+	Пусть \(\operatorname{dim}V = k > 0\) и \(e_1, \dots, e_k\) - базис \(V\). Дополним \(e_1, \dots, e_k\) до базиса всего \(\mathbb{F}^n : e_1, \dots, e_k, \dots, e_n\). Тогда:
+	\[A = 
+		\left(
+			\begin{array}{c|c}
+			A_{0_{k, k}} & B_{k, n - k}\\
+			\hline
+			0_{n - k, k} & C_{n - k, n - k}
+			\end{array}
+		\right) \text{, и } V = \left\{
+			\left(
+			\begin{array}{c}
+				a_1\\
+				\vdots\\
+				a_k\\
+				\vdots\\
+				a_n
+			\end{array}
+			\right) \in \mathbb{F}^n
+		\right\}
+	\]
+	\(\mathbb{F}\) - алгебраически замкнуто \(\Rightarrow \exists v_0 \in \mathbb{F}^k : A_ov_o = \lambda v_o\)
+	\[v_o = \left(
+		\begin{array}{c}
+			b_1\\
+			\vdots\\
+			b_k
+		\end{array}
+	\right) \Rightarrow \exists v \in \mathbb{F}^n : v = \left(
+		\begin{array}{c}
+			b_1\\
+			\vdots\\
+			b_k\\
+			0\\
+			\vdots\\
+			0
+		\end{array}
+	\right) \Rightarrow Av = \lambda v\]
+\end{proof}
+
+\begin{theorem} \label{th2_1}
+	(Бёрнсайда) Пусть \(\mathbb{F}\) алгебраически замкнуто, \(\mathcal{A}\) --- неприводимая подалгебра \(\operatorname{M}_n(\mathbb{F}) \Rightarrow \mathcal{A} = \operatorname{M}_n(\mathbb{F})\)
+\end{theorem}
+
+\begin{proof}[Доказательство]
+	~\newline 
+	1) Сначала покажем, что \(\exists T \in \mathcal{A} : \operatorname{rk} T = 1\)
+	\\
+	Пусть \(T \neq 0\) --- имеет минимальный ранг. Предположим, что \(\operatorname{rk} T > 1 \Rightarrow \exists u, v \in \mathbb{F}^n : Tu \text{ и } Tv\) --- линейно независимы. Из \hyperref[lm2_1]{\textbf{Леммы 1}}:
+	\[\exists A \in \mathcal{A} : A \cdot Tv = u \label{1} \tag{1}\]
+	\[T[\mathbb{F}^n] \text{ - образ оператора } T \text{ --- } TA \text{ - инвариантен} \tag{2} \label{2}\]
+	Из \hyperref[lm2_3]{\textbf{Леммы 3}} и (\ref{2}) \(\Rightarrow\) что \(T[\mathbb{F}^n]\) содержит собственный вектор \(TA\) с собственным значением \(\lambda\), тогда:
+	\[\exists w \in T[\mathbb{F}^n]: TAw = \lambda w\]
+	\[(TA - \lambda E)w = 0 \label{3} \tag{3}\]
+	\[(TA -\lambda E)T = T(AT - \lambda E)\]
+	следовательно образ \((TA - \lambda E)T\) лежит в \(T[\mathbb{F}^n]\) но не равен ему в силу (\ref{3}) \(\Rightarrow \) \[\operatorname{rk}((TA - \lambda E)T) < \operatorname{rk}T\]
+	С другой стороны, по (\ref{1}) верно что:
+	\[(TA - \lambda E)Tv = TATv - \lambda Tv = Tu - \lambda Tv \neq 0 \Rightarrow \bot \Rightarrow \operatorname{rk}T = 1\]
+	2) Без ограничения общности в \(T\) первый столбец ненулевой \(\Rightarrow \exists C \in \mathcal{A}:\)
+	\[\text{первый столбец \(CT\) равен } \left(
+		\begin{array}{c}
+			1\\
+			0\\
+			\vdots\\
+			0
+		\end{array}
+	\right) \text{, но } \operatorname{rk}T = 1 \Rightarrow CT = \left(
+		\begin{array}{cccc}
+			1&a_{12}&\hdots&a_{1n}\\
+			0&0&\hdots&0\\
+			\vdots&\vdots&\ddots&\vdots\\
+			0&0&\hdots&0
+		\end{array}
+	\right)\]
+	Из \hyperref[lm2_2]{\textbf{Леммы 2}}:
+	\[\exists D \in \mathcal{A}: CTD = \left(
+		\begin{array}{cccc}
+			1&0&\hdots&0\\
+			\vdots&\vdots&\ddots&\vdots\\
+			0&0&\hdots&0
+		\end{array}
+	\right) = E_{11}\]
+	Аналогично, для любых \(i, j = \overline{1, n}: E_{ij} \in \mathcal{A} \Rightarrow \mathcal{A} = \operatorname{M}_n(\mathbb{F})\)
+\end{proof}
+
+\newpage
+
+\section{Третья лекция}
+\paragraph{Следствия из теоремы Бёрнсайда}
+\begin{conseq}
+	Пусть \(S = \{A_1, \dots, A_n\} \subseteq \operatorname{M}_n(\mathbb{F}),\ E \in \mathcal{L}(S),\ \mathbb{F}\) - алгебраически замкнуто. Тогда \(\mathcal{L}(S) = \operatorname{M}_n(\mathbb{F}) \Leftrightarrow S\) - неприводимо.
+\end{conseq}
+
+\begin{proof}[Доказательство]
+	~\newline
+	\[S \text{ - приводимо} \Leftrightarrow \exists \text{ базис, в котором } \forall A \in S:\
+	A = \left(
+		\begin{array}{c|c}
+			A_0&B\\
+			\hline
+			0&C
+		\end{array}
+	\right) \Leftrightarrow \] 
+	\[\Leftrightarrow \exists \text{ базис, в котором } \forall A \in \mathcal{L}(S): A = \left(
+		\begin{array}{c|c}
+			A_0&B\\
+			\hline
+			0&C
+		\end{array}
+	\right) \Rightarrow \mathcal{L}(S) \neq \operatorname{M}_n(\mathbb{F})\]
+\end{proof}
+
+\begin{conseq}
+	Пусть \(\mathcal{A}\) --- подалгебра в \(\operatorname{M}_n(\mathbb{F}),\ E \in \mathcal{A},\ \mathbb{F}\) - алгебраически замкнуто, \(\mathcal{A} \neq \operatorname{M}_n(\mathbb{F})\). Тогда \(\operatorname{dim} \mathcal{A} \leqslant n^2 - n + 1\)
+\end{conseq}
+
+\begin{proof}[Доказательство]
+	\(\mathcal{A} \neq \operatorname{M}_n(\mathbb{F}) \Rightarrow \exists \mathcal{A}\) - инвариантное подмонжество размерности \(k \Rightarrow\)
+	\[\forall A \in \mathcal{A} : A = \left(
+		\begin{array}{c|c}
+			A_{0_{k, k}}&B_{k, n - k}\\
+			\hline
+			0_{n - k, k}&C_{n - k, n - k}
+		\end{array}
+	\right) \Rightarrow \forall k \in [1, n - 1] :\]
+	\[\operatorname{dim} \mathcal{A} \leqslant n^2 - k(n - k) \leqslant \max\limits_{k \in [1, n - 1]} \left(n^2 - k(n - k) \right) \leqslant n^2 - n + 1\]
+\end{proof}
+
+\begin{note} \label{nt3_1}
+	Пусть все матрицы в алегбре \(\mathcal{A}\) имеют вид:
+	\[A = \left(
+		\begin{array}{c|c|c|c}
+			A_{11} & * & \hdots & * \\
+			\hline
+			0 & A_{22} & \ddots & \vdots \\
+			\hline
+			\vdots & \vdots & \ddots & * \\
+			\hline
+			0 & 0 & \hdots & A_{kk} \\
+		\end{array}
+	\right)\]
+	Тогда:
+	\[\forall i : \mathcal{A}_i = \{A|_{= i}\ |\ A \in \mathcal{A} \} \text{ - подалгебра в } \operatorname{M}_{n_i}(\mathbb{F}).\]
+\end{note}
+
+\begin{theorem} \label{th3_1}
+	(о блочном строении) Пусть \(\mathcal{A}\) --- подалегбра \(\operatorname{M}_n(\mathbb{F}),\ E \in \mathcal{A},\ \mathbb{F}\) - алгебраически замкнуто. Тогда \(\exists\) базис в котором \(A \in \mathcal{A}\) имеет вид:
+	\[A = \left(
+	\begin{array}{c|c|c|c}
+		A_{11} & * & \hdots & * \\
+		\hline
+		0 & A_{22} & \ddots & \vdots \\
+		\hline
+		\vdots & \vdots & \ddots & * \\
+		\hline
+		0 & 0 & \hdots & A_{kk} \\
+	\end{array}
+	\right)\]
+	При этом:
+	\[\forall i : \mathcal{A}_i = \{A|_{=i}\ |\ A \in \mathcal{A}\} = \operatorname{M}_{n_i}(\mathbb{F}).\]
+\end{theorem}
+
+\begin{proof}[Доказательство]
+	Рассмотрим все цепочки вложенных инвариантных подпространств:
+	\[\{0\} = V_0 \subset V_1 \subset V_2 \subset \dots \subset V_k = \mathbb{F}^n\]
+	Выберем среди них цепочку максимальной длины. Построим базис в \(\mathbb{F}^n : \{e_1, \dots, e_n\}\).
+	Рассмотрим базис в пространстве \(V_1 : \{e_1, \dots, e_{i_1}\}\), дополним его до базиса в \(V_2 : \{e_1,\dots, e_{i_1}, e_{i_1 + 1}, \dots, e_{i_2}\}\).
+	Далее продолжим эту процедуру, пока не получим требуемый базис в \(\mathbb{F}^n\). В построенном базисе \(\{e_1, \dots, e_n\}:\)
+	\[\forall A \in \mathcal{A}: A = \left(
+	\begin{array}{c|c|c|c}
+		A_{11} & * & \hdots & * \\
+		\hline
+		0 & A_{22} & \ddots & \vdots \\
+		\hline
+		\vdots & \vdots & \ddots & * \\
+		\hline
+		0 & 0 & \hdots & A_{kk} \\
+	\end{array}
+	\right)\]
+	Пусть \(\exists m : \mathcal{A}_m = \operatorname{M}_{n_m}(\mathbb{F}) \Rightarrow \) по \hyperref[th2_1]{\textbf{Теореме Бёрнсайда}} и \hyperref[nt3_1]{\textbf{Замечанию 3}} \(\exists\) базис \(\mathbb{F}^n\), в котором \(\forall A \in \mathcal{A}_m\) имеет вид:
+	\[\left(
+		\begin{array}{c|c}
+			A_{0_{i_m, i_m}} & B_{i_m, n - i_m}\\
+			\hline
+			0_{n - i_m, i_m} & D_{n - i_m, n - i_m}
+		\end{array}
+	\right)\]
+	Пусть \(C\) - матрица перехода к этому базису, тогда рассмотрим следущий базис в \(\mathbb{F}^n :\)
+	\[(g_1, \dots, g_n) = (e_1, \dots, e_n) \cdot H = (e_1, \dots, e_n) \left(
+		\begin{array}{c|c|c}
+			E & 0 & 0 \\
+			\hline
+			0 & C & 0 \\
+			\hline
+			0 & 0 & E
+		\end{array}
+	\right)\]
+	Тогда, матрица \(A \in \mathcal{A}\) под действием \(H\) перейдет в базис \(\{g_1, \dots, g_n\}:\)
+	\[H^{-1}AH = \left(
+	\begin{array}{c|c|c|c}
+		A_{11} & * & \hdots & * \\
+		\hline
+		0 & A_{22} & \ddots & \vdots \\
+		\hline
+		\vdots & \vdots & \ddots & * \\
+		\hline
+		0 & 0 & \hdots & A_{kk} \\
+	\end{array}
+	\right) = \left(
+		\begin{array}{c|c|c|c|c|c}
+			A_{11} & * & \hdots & \hdots & \hdots & *\\
+			\hline
+			0 & A_{22} & \ddots &&& \vdots \\
+			\hline
+			\vdots & 0 & \ddots & \ddots && \vdots \\
+			\hline
+			\vdots & \vdots && C^{-1} A_{mm} C & \ddots & \vdots \\
+			\hline
+			\vdots & \vdots &&& \ddots & * \\
+			\hline
+			0 & 0 & \hdots & \hdots & \hdots & A_{kk}
+		\end{array}
+	\right) = \]
+	\[= \left(
+	\begin{array}{c|c|c|c|c|c}
+		A_{11} & * & \hdots & \hdots & \hdots & *\\
+		\hline
+		0 & A_{22} & \ddots &&& \vdots \\
+		\hline
+		\vdots & 0 & \ddots & \ddots && \vdots \\
+		\hline
+		\vdots & \vdots && \begin{array}{c|c}
+			A_0 & B \\
+			\hline
+			0 & D
+		\end{array} & \ddots & \vdots \\
+		\hline
+		\vdots & \vdots &&& \ddots & * \\
+		\hline
+		0 & 0 & \hdots & \hdots & \hdots & A_{kk}
+	\end{array}
+	\right)\]
+	\[V_m^{\prime} = \{e_1, \dots, e_{i_{m-1}}, g_{i_{m - 1} + 1}, \dots, g_{i_m}, \dots, e_n\} \Rightarrow\]
+	\[\Rightarrow \exists \text{ цепочка } \{0\} = V_0 \subset V_1 \subset V_2 \subset \dots \subset V_{m - 1} \subset V_m \subset V^{\prime}_m \subset V_{m + 1} \subset \dots \subset V_k = \mathbb{F}^n\]
+	но эта цепочка длиннее, так как \(V_m \neq V^{\prime}_m \Rightarrow \bot\)
+\end{proof}
+
+\begin{exec}
+	Пусть в терминах \hyperref[th3_1]{\textbf{Теоремы о блочном строении}} подалгебра \(\mathcal{A} \subset \operatorname{M}_6(\mathbb{F})\) имеет вид:
+	\[\mathcal{A} = \left(
+		\begin{array}{c|c}
+			A_{1_{3,3}} & 0 \\
+			\hline
+			0 & A_{2_{3, 3}}
+		\end{array}
+	\right).\]
+	Следует ли из этого, что \(\mathcal{A} = \operatorname{M}_3(\mathbb{F}) \oplus \operatorname{M}_3(\mathbb{F})\)?
+\end{exec}
+
+\begin{proof}[Решение]
+	Нет, так как \hyperref[th3_1]{\textbf{Теорема о блочном строении}} ничего не говорит о линейной независимости блоков, и вообще говоря, это не правда.
+\end{proof}
+
+\begin{exec}
+	Пусть в терминах \hyperref[th3_1]{\textbf{Теоремы о блочном строении}} алгебра
+	\[\mathcal{A} = \left( 
+		\begin{array}{c|c}
+			A_1 & \begin{array}{cc}
+				0&0\\
+				0&0
+			\end{array} \\
+			\hline
+			\begin{array}{cc}
+				0&0\\
+				0&0
+			\end{array} & A_2
+		\end{array}
+	\right) \text{ и } \exists A = \left(
+		\begin{array}{c|c}
+			A_1 & 0 \\
+			\hline
+			0 & 0
+		\end{array}
+	\right) \in \mathcal{A} : A_1 \neq E\]
+	Доказать, что \(\mathcal{A} = \operatorname{M}_2(\mathbb{F}) \oplus \operatorname{M}_2(\mathbb{F})\).
+\end{exec}
+
+\begin{proof}
+	По \hyperref[th3_1]{\textbf{Теореме о блочном строении}}: \(\mathcal{A}_1 = \operatorname{M}_2(\mathbb{F}) = \mathcal{A}_2 \Rightarrow\)
+	\[\mathcal{B} = \left\{
+		\left(
+			\begin{array}{c|c}
+				\begin{array}{cc}
+					0 & 0 \\
+					1 & 0
+				\end{array} & 0 \\
+				\hline
+				0 & C_1
+			\end{array}
+		\right);
+		\left(
+		\begin{array}{c|c}
+			\begin{array}{cc}
+				1 & 0 \\
+				0 & 0
+			\end{array} & 0 \\
+			\hline
+			0 & C_1
+		\end{array}
+		\right);
+		\left(
+		\begin{array}{c|c}
+			\begin{array}{cc}
+				0 & 1 \\
+				0 & 0
+			\end{array} & 0 \\
+			\hline
+			0 & C_1
+		\end{array}
+		\right);
+		\left(
+		\begin{array}{c|c}
+			\begin{array}{cc}
+				0 & 0 \\
+				0 & 1
+			\end{array} & 0 \\
+			\hline
+			0 & C_1
+		\end{array}
+		\right);
+	\right.\]
+	\[\left.
+		\left(
+			\begin{array}{c|c}
+				C_5 & 0 \\
+				\hline
+				0 & \begin{array}{cc}
+					0 & 1 \\
+					0 & 0
+				\end{array}
+			\end{array}
+		\right);
+		\left(
+		\begin{array}{c|c}
+			C_5 & 0 \\
+			\hline
+			0 & \begin{array}{cc}
+				0 & 0 \\
+				0 & 1
+			\end{array}
+		\end{array}
+		\right);
+		\left(
+		\begin{array}{c|c}
+			C_5 & 0 \\
+			\hline
+			0 & \begin{array}{cc}
+				0 & 0 \\
+				1 & 0
+			\end{array}
+		\end{array}
+		\right);
+		\left(
+		\begin{array}{c|c}
+			C_5 & 0 \\
+			\hline
+			0 & \begin{array}{cc}
+				1 & 0 \\
+				0 & 0
+			\end{array}
+		\end{array}
+		\right)
+	 \right\} \subseteq \mathcal{A}\]
+	 Если показать, что \(E_1 = \left(
+	 \begin{array}{c|c}
+	 	\begin{array}{cc}
+	 		1 & 0 \\
+	 		0 & 1
+	 	\end{array} & 0 \\
+	 	\hline
+	 	0 & C_1
+	 \end{array}
+	 \right) \in \mathcal{A}\), то базис в \(\operatorname{M}_2(\mathbb{F}) \oplus \operatorname{M}_2(\mathbb{F})\) выглядит как \(\{E_1B_1, \dots, E_4B_4, B_5, \dots, B_8\}\)
+	 
+	 \begin{enumerate}
+	 	\item \(\operatorname{rk} A_1 = 2\):
+	 	\[\mathcal{A}_1 = \operatorname{M}_2(\mathbb{F}) \Rightarrow X = \left(
+	 		\begin{array}{c|c}
+	 			A_1^{-1} & 0 \\
+	 			\hline
+	 			0 & D
+	 		\end{array}
+	 	\right) \in \mathcal{A} \Rightarrow XA = E_1 \in \mathcal{A}_1\]
+	 	\item \(\operatorname{rk} A_1 = 1\): аналогично доказательству \hyperref[th2_1]{\textbf{Теоремы Бёрнсайда}}, покажем что:
+	 	\[\left(
+	 		\begin{array}{c|c}
+	 			\begin{array}{cc}
+	 				1&0\\
+	 				0&0
+	 			\end{array} & 0\\
+	 			\hline
+	 			0 & 0
+	 		\end{array}
+	 	\right) \text{ и } \left(
+	 	\begin{array}{c|c}
+	 		\begin{array}{cc}
+	 			0&0\\
+	 			0&1
+	 		\end{array} & 0\\
+	 		\hline
+	 		0 & 0
+	 	\end{array}
+	 	\right) \in \mathcal{A} \Rightarrow E_1 \in \mathcal{A}\]
+	 	
+	 \end{enumerate}
+\end{proof}
+
+\newpage
+
+\section{Четвертая лекция}
+\paragraph{Триангулизуемые множества матриц}
+
+\begin{definition}
+	\(\operatorname{T}_n(\mathbb{F})\) - множество верхнетреугольных матриц порядка \(n\)
+\end{definition}
+
+\begin{definition}
+	Множество матриц \(\mathcal{A} \subseteq \operatorname{M}_n(\mathbb{F})\) триангулизуемо, если 
+	\[\exists C \in \operatorname{GL}_n(\mathbb{F}) : \forall A \in \mathcal{A} : C^{-1}AC \in \operatorname{T}_n(\mathbb{F})\]
+\end{definition}
+
+\begin{note}
+	Свойства инвариантные базису:
+	\begin{itemize}
+		\item \(\operatorname{rk}A, \operatorname{tr}A, \operatorname{det}A\)
+		\item \(\chi_A(t), \mu_A(t)\)
+		\item Спектр матрицы
+		\item Коммутативность, нильпотентность
+	\end{itemize}
+\end{note}
+
+\paragraph{Критерий триануглизуемости}
+
+\begin{lemma}\label{lm4_1}
+	Пусть \(A, B \in \operatorname{M}_n(\mathbb{F}), \lambda, \mu \in \mathbb{F}\), тогда:
+	\[[A, B] = [A + \lambda E, B + \mu E]\]
+\end{lemma}
+
+\begin{lemma}\label{lm4_2}
+	Пусть \(A \in \operatorname{T}_n(\mathbb{F})\). Тогда \(A\) --- нильпотентна \(\Leftrightarrow \forall i \in [1, n] : a_{ii} = 0\)
+\end{lemma}
+
+\begin{theorem}\label{th4_1}
+	Пусть \(\mathbb{F}\) --- алегбраически замкнуто. Алгебра \(\mathcal{A} \subseteq \operatorname{M}_n(\mathbb{F})\) триангулизуема, тогда и только тогда, когда:
+	\[\forall A, B \in \mathcal{A} : [A, B] \text{ --- нильпотентная}\]
+\end{theorem}
+
+\begin{proof}[Доказательство]
+	~\\
+	\((\Rightarrow)\) Выберем базис так, что: \(\forall A, B \in \mathcal{A}\) на диагонали матрицы \([A, B]\) стоят \(a_{ii}b_{ii} - b_{ii}a_{ii} = 0\), но \([A, B] \in \operatorname{T}_n(\mathbb{F}) \Rightarrow\), по \hyperref[lm4_2]{\textbf{Лемме 5}} \([A, B]\) --- нильпотентный\\
+	\((\Leftarrow)\) Рассмотрим алгебру \(\mathcal{B} = \mathcal{L}(\mathcal{A} \cup \{E\})\). По \hyperref[th3_1]{\textbf{Теореме о блочном строении}}: существует базис в котором \(\mathcal{B}\) имеет блочно-верхнетреугольный вид:
+	\[\left(
+		\begin{array}{ccc}
+			\mathcal{B}_{11} & \hdots & * \\
+			\vdots & \ddots & \vdots \\ 
+			0 & \hdots & \mathcal{B}_{kk}
+		\end{array}
+	\right),\ \forall i : \mathcal{B}|_i = \operatorname{M}_{n_i}(\mathbb{F})\]
+	Пусть \(\exists i : n_i \geqslant 2.\) Тогда \(\exists A, B \in [A, B]\left|_i\right.\) не являющийся нильпотентным \(\Rightarrow [A, B]\) не нильпотентен.
+	\[\forall A, B \in \mathcal{B}: \exists C, D \in \mathcal{A} \text{ и } \lambda, \mu \in \mathbb{F} : \]
+	\[A = C + \lambda E,\ B = D + \mu E \Rightarrow \]
+	\(\Rightarrow\) По \hyperref[lm4_1]{\textbf{Лемме 4}}: \([C, D] = [A, B]\) не нильпотентный \(\Rightarrow \bot \Rightarrow \forall i : n_i = 1 \Rightarrow \\ \Rightarrow \mathcal{B}\) --- триангулизуема \(\Rightarrow \mathcal{A}\) --- триангулизуема.
+\end{proof}
+
+\paragraph{Коммутативные и нильпотентные алгебры}
+
+\begin{conseq}
+	Пусть \(\mathbb{F}\) --- алгебраически замкнуто, \(S \subseteq \operatorname{M}_n(\mathbb{F}), \forall A, B \in S : AB = BA\). Тогда \(S\) --- неприводимая.
+\end{conseq}
+
+\begin{proof}[Доказательство]
+	\(\mathcal{L}(S)\) - коммутативная алгебра \(\Rightarrow \forall A, B \in \mathcal{L}(S) : [A, B] = 0 \Rightarrow \) по \hyperref[th4_1]{\textbf{Теореме 3}} \(\mathcal{L}(S)\) - триангулизуема.
+\end{proof}
+
+\begin{conseq}
+	Пусть \(\mathbb{F}\) - алгебраически замкнуто. Тогда \(\mathcal{A} \subseteq \operatorname{M}_n(\mathbb{F})\) нильпотентная алгебра(те, \(\forall A \in \mathcal{A} : \exists n : A^n = 0\)), тогда \(\mathcal{A}\) --- триангулизуема.
+\end{conseq}
+
+\begin{proof}[Доказательство]
+	\(\forall A, B \in \mathcal{A} \Rightarrow [A, B]\) нильпотентен \(\Rightarrow\) по \hyperref[th4_1]{\textbf{Теореме 3}}: \(\mathcal{A}\) --- триангулизуема.
+\end{proof}
+
+\begin{conseq}
+	\(\mathbb{F}\) --- алгебраически замкнутое поле. Тогда \(\mathcal{A} \subseteq \operatorname{M}_n(\mathbb{F})\) нильпотентная алгебра \(\Leftrightarrow \exists\) базис в котром \(\forall A \in \mathcal{A} : A\) строго верхнетреугольная.
+\end{conseq}
+
+\begin{definition}
+	Матрицы \(A, B\) одновременно триангулизуемы, если \(\{A, B\}\) триангулизуемо.
+\end{definition}
+
+\begin{theorem}
+	(Маккоя, изначальный вариант) \(A, B\) одновременно триангулизуемы \(\Leftrightarrow\)
+	\[\Leftrightarrow \forall C \in \mathcal{L}(\{A, B, E\}) : C[A, B] \text{ --- нильпотентен.}\]
+\end{theorem}
+
+\begin{proof}[Доказательство]
+	~\\
+	\((\Rightarrow)\) Аналогично, доказательству \hyperref[th4_1]{\textbf{Теоремы 3}}.\\
+	\((\Leftarrow)\) Рассмотрим \(\mathcal{A} = \mathcal{L}(\{A, B, E\})\). По \hyperref[th3_1]{\textbf{Теореме о блочном строении}}, \(\mathcal{A}\) имеет вид:
+	\[\left(
+		\begin{array}{ccc}
+			\mathcal{A}_{11} & \hdots & * \\
+			\vdots & \ddots & \vdots \\
+			0 & \hdots & \mathcal{A}_{kk}
+		\end{array}
+	\right),\ \forall i : \mathcal{A}_i = \operatorname{M}_{n_i}(\mathbb{F})\]
+	Пусть, \(\exists i : n_i \geqslant 2: AB|_i \neq BA|_i\) (иначе \(\operatorname{M}_{n_i}(\mathbb{F}) = \mathcal{A}_i = \mathcal{L}(\{A, B, E\})|_i\) --- коммутативная алгебра), тогда \[\exists x \in \mathbb{F}^{n_i} : [A, B] \left|_i \right. \cdot x \neq 0\]
+	\[\mathcal{L}(\{A, B, E\}) \left|_i \right. = \operatorname{M}_{n_i}(\mathbb{F}) \Rightarrow \exists C \in \mathcal{L}(\{A, B, E\}):\]
+	\[C \left|_i \right. \cdot [A, B] \left|_i \right. \cdot x = x \Rightarrow \forall n : (C \cdot [A, B])^n \cdot x = x \neq 0\]
+	Следовательно, \(C \cdot [A, B]\) не нильпотентен \(\Rightarrow \bot \Rightarrow \mathcal{A}\) --- триангулизуема \(\Rightarrow A, B\) --- одновременно триангулизуемы.
+\end{proof}
+
+\newpage
+\section{Используемые обозначения и соглашения}
+
+\begin{itemize}
+	\item В курсе в основном рассматриваются ассоциативные алгебры
+	\item \([A, B]\) - коммутатор матриц \(A, B\). \([A, B] = AB - BA\)
+	\item \(B \left|_{x} \right.\) - ограничение на блочную матрицу или на блочную алгебру. Имеется ввиду блок из матрицы(алгебры) с индексом \(x\)
+\end{itemize}
+
+\end{document}
