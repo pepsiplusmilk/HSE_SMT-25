@@ -30,6 +30,7 @@
 \newtheorem{example}{Пример}
 \newtheorem{state}{Утверждение}
 \newtheorem{exec}{Упражнение}
+\newtheorem{hypot}{Гипотеза}
 
 \setcounter{tocdepth}{5}
 
@@ -940,12 +941,308 @@
 \end{proof}
 
 \newpage
+
+\section{Пятая лекция}
+\paragraph{Теорема Лаффи}
+
+\begin{lemma}\label{lm5_1}
+	Пусть \(\mathbb{F}\) - алгебраически замкнутое поле, \(\operatorname{rk}[A, B] = 1\). Тогда \(\{A, B\}\) - приводимо.
+\end{lemma}
+
+\begin{proof}[Доказательство]
+	Пусть \(\lambda\) - собственное значение \(B\), тогда \(\operatorname{rk}(B - \lambda E) \in [1, n - 1]\)(если \(\operatorname{rk}(B - \lambda E) = 0\), то \([A, B] = 0 \Rightarrow \operatorname{Ker}(B - \lambda E)\) и \(\operatorname{Im}(B - \lambda E)\) --- нетривиальные \(B\) - инвариантные подпространства \(\mathbb{F}^n\))
+	\[\forall v \in \operatorname{Ker}(B - \lambda E ): (B - \lambda E) Bv = B(B - \lambda E)v = B \cdot 0 = 0 \Rightarrow\]
+	\[\Rightarrow Bv \in \operatorname{Ker}(B - \lambda E)\]
+	\[\forall v \in \operatorname{Im}(B - \lambda E): \exists u \in \mathbb{F}^n : v = (B - \lambda E)u \Rightarrow Bv = B(B - \lambda E)u = (B - \lambda E)Bu \Rightarrow\]
+	\[\Rightarrow Bv \in \operatorname{Im}(B - \lambda E)\]
+	Пусть \(\operatorname{Ker}(B - \lambda E)\) не \(A\) - инвариантно \(\Rightarrow \exists x \in \operatorname{Ker}(B - \lambda E) : (B - \lambda E) Ax \neq 0\)
+	По условию: \(\operatorname{rk}[A, B] = 1 \Rightarrow \operatorname{Im}[A, B] = \left\langle y \right\rangle \), где \(y \in (\mathbb{F}^n \setminus \{0\})\)
+	\begin{enumerate}
+		\item \[\alpha y = [A, B]x = [A, B - \lambda E]x = A\underbrace{(B - \lambda E )}_{= 0}x - \underbrace{(B - \lambda E)Ax}_{\geqslant 0} \neq 0\]
+		Получаем что \(\alpha \neq 0\) и \(y \in \operatorname{Im}(B - \lambda E)\)
+		
+		\item \[\forall u \in \mathbb{F}^n : [A, B]u = [A, B - \lambda E]u = \beta y \Rightarrow \] 
+		\[\Rightarrow A(B - \lambda E)u = \underbrace{(B - \lambda E)Au}_{\in \operatorname{Im}(B - \lambda E)} + \beta y \overset{\text{по 1.}}{\Rightarrow} A(B - \lambda E)u \in \operatorname{Im}(B - \lambda E)\]
+		
+		\item \[\forall v \in \operatorname{Im}(B - \lambda E) : \exists u \in \mathbb{F}^n : v = (B - \lambda)u \Rightarrow \] \[\Rightarrow Av = A(B - \lambda E)u \overset{\text{по 2.}}{\in} \operatorname{Im}(B - \lambda E) \Rightarrow \operatorname{Im}(B - \lambda E) \text{ --- \(A\) - инвариантно.}\]
+	\end{enumerate}
+\end{proof}
+
+\begin{note}
+	\(\mathcal{L}(\{A, B\})\) - приводима \(\Leftrightarrow \mathcal{L}(\{A, B, E\})\) - приводима.
+\end{note}
+
+\begin{theorem}
+	(Лаффи) Пусть \(\mathbb{F}\) --- алгебраически замкнутое поле, \(A, B \in M_n(\mathbb{F}), rk[A, B] = 1 \Rightarrow \{A, B\}\) - триангулизуемы.
+\end{theorem}
+
+\begin{proof}[Доказательство]
+	Рассмотрим \(\mathcal{A} = \mathcal{L}(\{A, B, E\})\) по \hyperref[th3_1]{\textbf{Теореме о блочном строении}}:
+	\[\mathcal{A} = \left(
+		\begin{array}{ccc}
+			\mathcal{A}_1 & & *\\
+			\vdots & \ddots & \\
+			0 & \hdots & \mathcal{A}_k
+		\end{array}
+	\right) \text{, где } \mathcal{A}_i = \operatorname{M}_{n_i}(\mathbb{F})\]
+	Пусть \(\exists i : n_i \geqslant 2\). Тогда \(\mathcal{L}(\{A \left|_{i} \right., B\left|_{i} \right., E\left|_{i} \right.\}) = M_{n_i}(\mathbb{F})\)
+	По условию \(\operatorname{rk}[A, B] = 1 \Rightarrow \operatorname{rk}[A\left|_{i} \right., B\left|_{i} \right.] \leqslant 1 \overset{\text{по \hyperref[lm5_1]{\textbf{Лемме 6}}}}{\Rightarrow} \{A\left|_{i} \right., B\left|_{i} \right.\}\) - приводимо \(\Rightarrow \mathcal{L}(\{A \left|_{i} \right., B\left|_{i} \right., E\left|_{i} \right.\}) \neq \operatorname{M}_{n_i}(\mathbb{F}) \Rightarrow \bot \Rightarrow \mathcal{A} \subseteq T_n({\mathbb{F}}), A, B, \in \mathcal{A}\)
+\end{proof}
+
+\paragraph{Числовые характеристики алгебр}
+\subparagraph{Индекс нильпотентности}
+
+\begin{definition}
+	Пусть \(\mathcal{A}\) --- нильпотентная алгебра в \(\operatorname{M}_n(\mathbb{F})\), тогда будем называть: 
+	\[i(\mathcal{A}) = \operatorname{min}\left\{k \in \mathbb{N} | \forall A_1, A_2, \dots, A_k \in \mathcal{A}: A_1 \cdot A_2 \cdot \dots \cdot A_k = 0\right\}\]
+\end{definition}
+
+\begin{lemma}
+	Пусть \(\mathcal{A}\) - нильпотентная алгебра в \(\operatorname{M}_n(\mathbb{F}),\ i(\mathcal{A}) = k,\ k \in [2, n]\), тогда \(\exists\) базис в котором  \(\mathcal{A}\) --- блочно-ниль-треугольная, с \(k\) нулевыми блоками на диагонали.
+\end{lemma}
+
+\begin{proof}[Доказательство]
+	Рассмотрим цепочку \(\mathbb{F}^n \supseteq \mathcal{A}\mathbb{F}^n \supseteq \mathcal{A}^2\mathbb{F}^n \supseteq \dots\):
+	\[k = i(\mathcal{A}) \Rightarrow \mathcal{A}^k\mathbb{F}^n = \{0\} \text{ и } \mathcal{A}^{k - 1}\mathbb{F}^n \neq \{0\}\]
+	\(\forall j \in \mathbb{N} : \) если \(\mathcal{A}^j\mathbb{F}^n = \mathcal{A}^{j - 1}\mathbb{F}^n\), то:
+	\[\forall t \geqslant j : \mathcal{A}^t\mathbb{F}^n = \mathcal{A}^{j - 1}\mathbb{F}^n\]
+	Следовательно, цепочка, рассмотренная в начале доказательства строго убывает до \(\mathcal{A}^k\mathbb{F}^n\), тогда:
+	\[\{0\} = \mathcal{A}^k\mathbb{F}^n \subseteq \underset{\left\langle e_1, \dots, e_{i_1} \right\rangle}{\mathcal{A}^{k - 1}\mathbb{F}^n} \subseteq \dots \subseteq \underset{\left\langle e_1, \dots, e_{i_{k-1}} \right\rangle}{\mathcal{A}\mathbb{F}^n} \subseteq \underset{\left\langle e_1, \dots, e_{n} \right\rangle}{\mathbb{F}^n}\]
+	Возьмем, построенный по цепочки подпространств базис \(\langle e_1, \dots, e_n\rangle\) и представим \(A \in \mathcal{A}\):
+	\[A = \left(
+		\begin{array}{c|c|c|c|c}
+			O_{n_1} & A_{12} & A_{13} & \hdots & A_{1k} \\
+			\hline 
+			& O_{n_2} & A_{23} & & \vdots \\
+			\hline 
+			& & O_{n_3} & \ddots & \vdots\\
+			\hline
+			& & & \ddots & A_{k - 1, k} \\
+			\hline
+			& & & & O_{n_{k}}
+		\end{array}
+	\right),\ O_{n_j} \in \operatorname{M}_{i_j - i_{j - 1}}(\mathbb{F})\]
+\end{proof}
+
+\begin{theorem}\label{th5_2}
+	Пусть \(\mathcal{A}\) --- нильпотентная алгебра в \(\operatorname{M}_n(\mathbb{F}): i(\mathcal{A}) = 2 \Rightarrow \mathcal{A}\) --- коммутативная и \(\operatorname{dim}\mathcal{A} \leqslant \left[ \frac{n^2}{4} \right]\)
+\end{theorem}
+
+\begin{proof}[Доказательство]
+	\(\forall A, B: AB = 0 = BA \Rightarrow \mathcal{A}\) --- коммутативная.
+	
+	По \hyperref[lm5_1]{\textbf{Лемме 6}}: \(\exists\) базис в котором \(\forall A \in \mathcal{A}\) имеет вид:
+	\[\left(
+		\begin{array}{c|c}
+			O_{k} & A^{\prime} \\
+			\hline
+			0 & O_{n - k}
+		\end{array}
+	\right) \Rightarrow \operatorname{dim}\mathcal{A} \leqslant \operatornamewithlimits{max}\limits_{k \in [1, n - 1]} k(n - k) = \left[ \frac{n}{2} \right] \left(n - \left[ \frac{n}{2} \right]\right) = \left[ \frac{n^2}{4} \right]\]
+\end{proof}
+
+\begin{exec}
+	Пусть \(\mathcal{A}\) - нильпотентная подалгебра \(\operatorname{M}_7(\mathbb{F}), i(\mathcal{A}) = 3\). Найти максимально возможную размерность алгебры \(\mathcal{A}\)?
+\end{exec}
+
+\begin{proof}[Решение]
+	По \hyperref[lm5_1]{\textbf{Лемме 6}} \(\exists\) базис, в котором \(\forall A \in \mathcal{A}:\)
+	\[\left(
+		\begin{array}{ccc}
+			O_{n_1} & A_{12} & A_{13} \\
+			\vdots & O_{n_2} & A_{23} \\
+			0 & \hdots & O_{n_3}
+		\end{array}
+	\right)\]
+	Запишем все ограничения на размерность алгебры, которые мы знаем в виде системы:
+	\[\begin{cases}
+		2 \operatorname{dim}\mathcal{A} + n_1^2 + n_2^2 + n_3^2 \leqslant 49 \\
+		n_1 + n_2 + n_3 = 7 \\
+		\forall i : n_i \in [1, 3]
+	\end{cases}\]
+	Переформулируя условия, получаем эквивалентную систему:
+	\[\begin{cases}
+		n_1^2 + n_2^2 + n_3^2 \in \{27, 21, 19\} & ,\ \exists i: n_i = 1 \\
+		n_1^2 + n_2^2 + n_3^2 = 17 & \text{, иначе}
+	\end{cases}\]
+	\(\operatorname{dim}\mathcal{A} \leqslant \frac{49 - 17}{2} = 16\) \\
+	Эта оценка достигается, например для следующих матриц:
+	\[\mathcal{A} = \left\{\left(
+		\begin{array}{c|c|c}
+			O_3 & A_{12} & A_{13} \\
+			\hline
+			\vdots & O_2 & A_{23} \\
+			\hline
+			0 & \hdots & O_2
+		\end{array}
+	\right)\right\}\]
+\end{proof}
+
+\begin{hypot}\label{h5_1}
+	(Густафсона) Пусть \(\mathcal{A}\) --- нильпотентная, коммутативная подалгебра алгебры \(\operatorname{M}_n(\mathbb{}F),\ k = i(\mathcal{A})\), тогда:
+	\[\operatorname{dim} \mathcal{A} \leqslant \left[ \frac{(n - k + 2)^2}{4} \right] + k - 2\]
+\end{hypot}
+
+\newpage
+
+\section{Шестая лекция}
+\paragraph{Коммутативные алгебры}
+
+\begin{theorem}
+	(Шура) Пусть \(\mathcal{A}\) --- коммутативная алгебра подалгебра \(\operatorname{M}_n(\mathbb{F})\).
+	\[\text{Тогда } \operatorname{dim}\mathcal{A} \leqslant \left[  \frac{n^2}{4} \right] + 1\]
+\end{theorem}
+
+\begin{lemma}
+	Для любого \(n\) оценка данная в теореме Шура достигается.
+\end{lemma}
+
+\begin{proof}[Доказательство]
+	Рассмотрим \(\mathcal{A} \subset \operatorname{M}_n(\mathbb{F})\), где:
+	\[\mathcal{A} = \left\{ \left. \left(
+		\begin{array}{c|c}
+			\lambda E_{\left[ \frac{n}{2} \right]} & * \\
+			\hline
+			0 & \lambda E_{n - \left[ \frac{n}{2} \right]}
+		\end{array}
+	 \right) \right| \lambda \in \mathbb{F} \right\}\]
+	 \[\operatorname{dim}\mathcal{A} = \left[ \frac{n}{2} \right] \cdot \left( n - \left[ \frac{n}{2} \right] \right) + 1 = \left[ \frac{n^2}{4} \right] + 1\]
+	 \[\forall A, B \in \mathcal{A}: [A, B] = [A - \lambda E, B - \mu E] = (A - \lambda E)(B - \mu E) - (B - \mu E)(A - \lambda E) = 0 - 0 = 0\]
+	 Замкнутость множества \(\mathcal{A}\) относительно умножения наследуется, так как это блочно-треугольная алгебра, по своему строению.
+\end{proof}
+
+\begin{exec}
+	Найти в \(\operatorname{M}_2(\mathbb{F})\) две различные коммутативные подалгебры, с точностью до замены базиса, максимальной размерности.
+\end{exec}
+
+\begin{proof}[Решение]
+	Согласно теореме Шура, максимальная размерность будет равна:
+	\[\left[ \frac{2^2}{4} \right] + 1 = 1 + 1 = 2\]
+	\[\mathcal{A} = \left\{ \left. \left(
+		\begin{array}{cc}
+			a & 0 \\
+			0 & b
+		\end{array}
+	\right) \right| a, b \in \mathbb{F} \right\}\]
+	\[\mathcal{B} = \left\{ \left. \left(
+	\begin{array}{cc}
+		a & b \\
+		0 & a
+	\end{array}
+	\right) \right| a, b \in \mathbb{F} \right\}\]
+	\(\mathcal{A}\) --- не содержит нетривиальных нильпотентов, в отличии \(\mathcal{B} \Rightarrow \mathcal{A} \neq \mathcal{B}\)
+\end{proof}
+
+\paragraph{Числовые характеристики алгебр}
+\subparagraph{Максимальная степень минимального многочлена} ~\\
+
+\(\chi_A(t) = \operatorname{det}(A - tE)\) - характеристический многочлен \(A\).
+\(\mu_A(t)\) - минималньный многочлен \(A\)(минимальный многочлен, такой что при подставновки \(A\) он обнуляется).
+
+\begin{exec}
+	Известно, что если \(A, B\) - подобны(\(\exists C : A = C^{-1}BC\)), то: \(\chi_A(t) = \chi_B(t) \text{ и } \mu_A(t) = \mu_B(t)\). Показать, что обратное не верно.
+\end{exec}
+
+\begin{proof}[Решение]
+	\[A = \left( 
+		\begin{array}{cccc}
+			0&1&0&0\\
+			0&0&0&0\\
+			0&0&0&1\\
+			0&0&0&0
+		\end{array}
+	\right), B = \left(
+		\begin{array}{cccc}
+			0&1&0&0\\
+			0&0&0&0\\
+			0&0&0&0\\
+			0&0&0&0
+		\end{array}
+	\right) \Rightarrow \]
+	\[\Rightarrow \chi_A(t) = \chi_B(t) = t^4;\ \mu_A(t) =\mu_B(t) = t^2\]
+	Но \(A \nsim B\), так как \(\operatorname{rk}A \neq \operatorname{rk}B\).
+\end{proof}
+
+\begin{theorem}
+	(Гамильтона-Кэли) Пусть \(\mathbb{F}\) --- произвольное поле. Тогда \(\forall A \in \operatorname{M}_n(\mathbb{F}) : \chi_A(A) = 0\).
+\end{theorem}
+
+\begin{conseq}
+	\(\mu_A(T)\ |\ \chi_A(t)\)
+\end{conseq}
+
+\begin{definition}
+	Пусть \(S \subseteq \operatorname{M}_n(\mathbb{F})\), тогда:
+	\[m(S) = \operatornamewithlimits{max}\limits_{A \in S} \{\operatornamewithlimits{deg}(\mu_A(t))\}\]
+\end{definition}
+
+\begin{conseq}
+	Пусть \(S \subseteq \operatorname{M}_n(\mathbb{F})\), тогда:
+	\[m(S) \leqslant n\]
+\end{conseq}
+
+\begin{conseq}
+	Пусть \(S \in \operatorname{M}_n(\mathbb{F})\), тогда:
+	\[\operatorname{dim} \mathcal{L}(S) \leqslant n\]
+	\[\operatorname{dim} \mathcal{L}(S) = \operatorname{dim}(\mu_S(t)) \leqslant n\]
+\end{conseq}
+
+\subparagraph{Длина алгебры}
+
+\begin{definition}
+	\(W \in S^{i}\) сократимо, если \(W \in \mathcal{L}_{i - 1}(S)\)
+\end{definition}
+
+\begin{state}
+	Если \(\forall W \in S^i\) сократимо \(\Rightarrow \forall k > i: \forall V \in S^k\) сократимо.
+\end{state}
+
+\begin{state}
+	\(\mathcal{L}(S) = \mathcal{L}_i(S) \Leftrightarrow \forall W \in S^{i + 1}\) сократимо.
+\end{state}
+
+\begin{proof}[Доказательство]
+	\[\mathcal{L}_0(S) \subseteq \mathcal{L}_1(S) \subseteq \dots \subseteq \mathcal{L}_i(S) \subseteq \mathcal{L}_{i + 1}(S) \subseteq \dots \subseteq \mathcal{L}(S)\]
+	\(\forall W \in S^{i + 1}\) --- сократимо, равносильно тому что:
+	\[\mathcal{L}_{i + 1}(S) = \mathcal{L}_i(S) \Leftrightarrow\]
+	\[\Leftrightarrow \forall k > i : \mathcal{L}_k(S) = \mathcal{L}_i(S) \Leftrightarrow \mathcal{L}_i(S) = \mathcal{L}(S)\]
+\end{proof}
+
+\begin{definition}
+	Длина множества \(S \subseteq \operatorname{M}_n(\mathbb{F})\):
+	\[l(S) = \operatorname{min}\{i | \mathcal{L}_i(S) = \mathcal{L}(S)\}\]
+\end{definition}
+
+\begin{state}
+	\(k \leqslant l(S) \Leftrightarrow \exists\) несократимая \(W \in S^k\)
+\end{state}
+
+\begin{example}
+	Если \(S = \{A\} \subseteq \operatorname{M}_n(\mathbb{F})\), то:
+	\[l(S) = \operatorname{deg}(\mu_A(t)) - 1 \leqslant n - 1\]
+\end{example}
+
+\begin{example}
+	Если \(S \subseteq \operatorname{M}_n(\mathbb{F}):\) \[l(S) \leqslant n^2 - 1\]
+\end{example}
+
+\begin{hypot}
+	(Паза) Если \(S \subseteq \operatorname{M}_n(\mathbb{F})\), то: \[l(S) \leqslant 2n - 2\]
+\end{hypot}
+
+\newpage
 \section{Используемые обозначения и соглашения}
 
 \begin{itemize}
 	\item В курсе в основном рассматриваются ассоциативные алгебры
 	\item \([A, B]\) - коммутатор матриц \(A, B\). \([A, B] = AB - BA\)
 	\item \(B \left|_{x} \right.\) - ограничение на блочную матрицу или на блочную алгебру. Имеется ввиду блок из матрицы(алгебры) с индексом \(x\)
+	\item Пусть \(S = \{A_1, \dots, A_k\} \subseteq \operatorname{M}_n(\mathbb{F})\)
+	\[S^i = \{A_{j_1} \cdot \dots \cdot A_{j_k} | A_{j_k} \in S\}\]
+	\[S^{\leqslant i} = \bigcup\limits_{j = 0}^i S^{j}\]
+	\item Если \(E \in \mathcal{L}(S)\), то \(S^0 = \{E\}\) - множество скалярных матриц, иначе \(S^0 = \varnothing\)
+	\item \(\mathcal{L}_i(S) = \langle S^{\leqslant i} \rangle\)
+	\item \(\mathcal{L}(S) = \bigcup\limits_{j = 0} \mathcal{L}_j(S)\)
 \end{itemize}
 
 \end{document}
