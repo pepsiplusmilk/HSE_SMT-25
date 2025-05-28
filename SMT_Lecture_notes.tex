@@ -1231,6 +1231,121 @@
 \end{hypot}
 
 \newpage
+
+\section{Седьмая лекция}
+
+\begin{lemma}
+	Оценка данная в гипотезе Паза, достигается, те:
+	\[\exists S \subseteq \operatorname{M}_n(\mathbb{F}) : l(S) = 2n - 2\]
+\end{lemma}
+
+\begin{proof}[Доказательство]
+	Рассмотрим \(S = \{A, B\} = \{E_{n, 1}, J(0)\} = \)
+	\[ = \left\{ \left(
+		\begin{array}{cccc}
+			0 & 0 & \hdots & 0 \\
+			0 & 0 & \hdots & 0 \\
+			\vdots & \vdots & \ddots & \vdots \\
+			0 & 0 & \hdots & 0 \\
+			1 & 0 & \hdots & 0
+		\end{array} \right); 
+		\left(
+			\begin{array}{cccc}
+				0 & 1 & \hdots & 0 \\
+				\vdots & \ddots & \ddots & \vdots \\
+				\vdots & & \ddots & 1 \\
+				0 & \hdots & \hdots & 0
+			\end{array}
+		\right)
+		 \right\}\]
+		 
+		 \begin{enumerate}
+		 	\item Сначала покажем, что \(\mathcal{L}(S) = \operatorname{M}_n(\mathbb{F})\)
+		 	\[A^iB = E_{n - i, 1} \text{ при } i \in [0, n - 1]\]
+		 	\[A^j = E_{1, j + 1} + E_{2, 2 +j} + \dots + E_{n - j, n} \text{ при } j \in [1, n - 1]\]
+		 	\[\forall k, m \in [1, n] : E_{k,m} = E_{k,1} \cdot E_{1, m} = E_{k, 1}(E_{1,m} + E_{2, m + 1} + \dots + E_{n - m + 1, n}) =\] \[= A^{n - k}BA^{m - 1} \in \mathcal{L}(S) \Rightarrow \mathcal{L}(S) = \operatorname{M}_n(\mathbb{F})\]
+		 	\item Теперь, что: \(l(S) \leqslant 2n - 2\)\\
+		 	Из первого пункта следует, что \(\mathcal{A}\) порождается словами вида \(A^{n - k}BA^{m - 1}\). Их длина вычисляется как:
+		 	\[n - k + 1 + m - 1 = n + m - k \leqslant 2n - 1\]
+		 	Однако, равенство достигается только при \(k = 1\) и \(n = m\). Это верно для единственного слова в этой алгебре: 
+		 	\[A^{n - 1}BA^{n - 1} = E_{1n} = A^{n - 1} \in \mathcal{L}_{n - 1}(S) \Rightarrow \mathcal{L}_{2n - 2}(S) =\mathcal{L}(S)\]
+		 	\item Наконец, покажем оценку с другой стороны: \(l(S) \geqslant 2n - 2\)\\
+		 	В матрице \(BA^kB\ (k \geqslant 0)\) первые \(n - 1\) строк нулевые, а так же последние \(n - 1\) столбцов нулевые, из-за строения матрицы \(B \Rightarrow BA^kB = \lambda B \Rightarrow\) если в слове есть, хотя бы 2 буквы \(B\), то оно сократимо.\\
+		 	Для \(D = \{A^iBA^j, A^k | i, j, k \in [0, n - 1]\} \text{ и } \mathcal{L}(S) = \langle D \rangle:\)
+		 	\[\mathcal{L}_{2n - 3}(S) = \langle D \setminus \{A^{n - 1}BA^{n - 1}, A^{n - 2}BA^{n - 1}, A^{n - 1}BA^{n - 2}\} \rangle\]
+		 	Так как мы исключили матричные единицы из линейной оболчки \(D\) на позициях \((1, n - 1) \) и \((2, n)\), то в этих ячейках матриц должны стоять одинаковые числа(либо 2 нуля --- матричная единица, либо 2 единицы --- наддиагональ сверху) тогда:
+		 	 \[\mathcal{L}_{2n - 3}(S) \neq \mathcal{L}(S) = \operatorname{M}_{n}(\mathbb{F}) \Rightarrow l(S) > 2n - 3\]
+		 \end{enumerate}
+\end{proof}
+
+\begin{state}
+	Подслова несократимого слова, несократимы.
+\end{state}
+
+\begin{state}\label{st7_1}
+	Пусть \(W, U \in S^k, W\) --- несократимо, \(W \vdash U\), тогда \(U\) так же несократимо.
+\end{state}
+
+\begin{proof}[Доказательство]
+	Пусть \(U \in \mathcal{L}_{k - 1}(S)\), тогда: \[W = \alpha \cdot \underset{\in \mathcal{L}_{k - 1}(S)}{U} + \beta \cdot \underset{\in \mathcal{L}_{k - 1}(S)}{V} \Rightarrow W \in \mathcal{L}_{k - 1}(S)\]
+\end{proof}
+
+\begin{theorem}\label{st7_2}
+	Пусть \(S \subset \operatorname{M}_n(\mathbb{F}), E \in \mathcal{L}(S), d = \operatorname{dim} \mathcal{L}(S), m = m(S), l = l(S)\), тогда:
+	\[l(S) \leqslant \operatorname{max} \left\{m - 1, \frac{d}{2}\right\}\]
+\end{theorem}
+
+\begin{proof}[Доказательство]
+	Рассмотрим в отдельности 2 случая:
+	\begin{enumerate}
+		\item \(\forall k \in [1, l - 1] : \operatorname{dim} \mathcal{L}_k(S) - \operatorname{dim} \mathcal{L}_{k - 1}(S) \geqslant 2\)
+		\[d = \operatorname{dim} \mathcal{L}(S) = \sum\limits_{i = 0}^{l - 1} \left(\operatorname{dim} \mathcal{L}_{l - i}(S) - \operatorname{dim} \mathcal{L}_{l - i - 1}(S) \right) + \operatorname{dim} \mathcal{L}_{0}(S)\]
+		Каждое из слагаемых в этой сумме, по предположению равно хотя бы двум, кроме первого, которое можно оценить снизу 1, так как иначе длина алгебры была бы равна \(d - 1\), тогда:
+		\[d \geqslant 1 + 2(l - 1) + 1 = 2l\]
+		
+		\item Теперь рассмотрим оставшийся вариант:
+		\[\exists k \in [1, l - 1] : \operatorname{dim} \mathcal{L}_k(S) - \operatorname{dim} \mathcal{L}_{k - 1}(S) = 1 \label{4}\tag{4}\]
+		Пусть мы имеем несократимое слово длины \(l\):
+		\[W_1 = A_1 \dots A_l \text{, где } A_i \in S\]
+		Тогда
+		\[U_1 = A_1 \dots A_k \text{ и } U^{\prime}_1 = A_2 \dots A_{k + 1} \text{ --- несократимые слова длины } k\]
+		В силу (\ref{4}) \(U_1^{\prime} \vdash U_1\). Подставим в \(W_1\) вместо \(U_1^{\prime}\) линейную комбинацию выражающую его через \(U_1\) и слова меньшей длины. Тогда \(W_1 \vdash W_2\), где:
+		\[W_2 = A_1A_1 \dots A_k A_{k + 2} \dots A_l\]
+		\[W_1 = A_1A_2 \dots A_{k}A_{k + 1} \dots A_l = A_1 (\alpha U_1 + \underset{\in \mathcal{L}_{k - 1}(S)}{V})A_{k + 2} \dots A_l = \underbrace{\alpha A_1 U_1 A_{k + 2} \dots A_l}_{W_2} +\]
+		\[+ \underbrace{A_1 V A_{k + 2} \dots A_{l}}_{\in \mathcal{L}_{l - 1}(S)}\]
+		Получаем что, \(W_2\) --- несократимое слово длины \(l\), по \hyperref[st7_2]{\textbf{Утверждению 6}}.\\
+		\(U_2 = A_1A_1A_2 \dots A_{k - 1}, U_2^{\prime} = A_1A_2 \dots A_{k}\) --- несократимые слова длины \(k\). Тогда в силу (\ref{4}):
+		\[U_2^{\prime} \vdash U_2 \Rightarrow W_2 \vdash W_3 \text{, где } W_3 = A_1A_1A_1 \dots A_{k - 1} \dots A_{l}\]
+		\(\vdots\)\\
+		На \(k\)-ом шаге получим что:
+		\[W_k = A_1^k A_2 A_{k + 2} \dots A_l \text{ --- несократимое слово длины } l\]
+		Тогда \(A_1^k\) --- несократимое слово длины \(k\), по (\ref{4}), \(\forall v \in S^k : v \vdash A_1^k \Rightarrow W_k \vdash A^{l}_1 \Rightarrow A_1^l\) --- несократимо \(\Rightarrow l \leqslant m - 1\)
+	\end{enumerate}
+\end{proof}
+
+\begin{conseq}
+	Гипотеза Паза верна при \(n \leqslant 3\)
+\end{conseq}
+
+\begin{proof}[Доказательство]
+	\leavevmode
+	\begin{itemize}
+		\item \(n = 3:\ \operatorname{dim} \mathcal{L}(S) \leqslant 9, m(S) \leqslant 3\), тогда \(l(S) \leqslant \operatorname{max} \left\{ 2, \frac{9}{2} \right\} = 4 = 2 \cdot 6 - 2\)
+		
+		\item \(n = 2:\ \operatorname{dim} \mathcal{L}(S) \leqslant 4, m(S) \leqslant 2\), тогда \(l(S) \leqslant \operatorname{max} \left\{ 1, \frac{4}{2} \right\} = 2 = 2 \cdot 2 - 2\)
+		
+		\item \(n = 1:\ \operatorname{dim} \mathcal{L}(S) \leqslant 1, m(S) \leqslant 1\), тогда \(l(S) \leqslant \operatorname{max} \left\{ 0, \frac{1}{2} \right\} = 0 = 2 \cdot 1 - 2\)
+	\end{itemize}
+\end{proof}
+
+\begin{conseq}
+	Пусть \(S \subset \operatorname{M}_n(\mathbb{F}), E \in \mathcal{L}(S), d = \operatorname{dim} \mathcal{L}(S), l = l(S)\) но
+	\[m = m^{\prime}(S) = \operatorname{min} \{k | \forall A \in S : A^k \in \mathcal{L}_{k - 1}(S)\}\]
+	Тогда:
+	\[l(S) \leqslant \operatorname{max} \left\{ m, \frac{d}{2} \right\}\]
+\end{conseq}
+
+\newpage
 \section{Используемые обозначения и соглашения}
 
 \begin{itemize}
