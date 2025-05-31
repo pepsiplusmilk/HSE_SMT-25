@@ -1278,11 +1278,11 @@
 		 \end{enumerate}
 \end{proof}
 
-\begin{state}
+\begin{state}\label{st7_1}
 	Подслова несократимого слова, несократимы.
 \end{state}
 
-\begin{state}\label{st7_1}
+\begin{state}\label{st7_2}
 	Пусть \(W, U \in S^k, W\) --- несократимо, \(W \vdash U\), тогда \(U\) так же несократимо.
 \end{state}
 
@@ -1290,7 +1290,7 @@
 	Пусть \(U \in \mathcal{L}_{k - 1}(S)\), тогда: \[W = \alpha \cdot \underset{\in \mathcal{L}_{k - 1}(S)}{U} + \beta \cdot \underset{\in \mathcal{L}_{k - 1}(S)}{V} \Rightarrow W \in \mathcal{L}_{k - 1}(S)\]
 \end{proof}
 
-\begin{theorem}\label{st7_2}
+\begin{theorem}
 	Пусть \(S \subset \operatorname{M}_n(\mathbb{F}), E \in \mathcal{L}(S), d = \operatorname{dim} \mathcal{L}(S), m = m(S), l = l(S)\), тогда:
 	\[l(S) \leqslant \operatorname{max} \left\{m - 1, \frac{d}{2}\right\}\]
 \end{theorem}
@@ -1324,7 +1324,7 @@
 \end{proof}
 
 \begin{conseq}
-	Гипотеза Паза верна при \(n \leqslant 3\)
+	Гипотеза Паза верна при \(n \leqslant 3\), а так же при условии что: \(E \in \mathcal{L}(S)\)
 \end{conseq}
 
 \begin{proof}[Доказательство]
@@ -1342,7 +1342,7 @@
 	Пусть \(S \subset \operatorname{M}_n(\mathbb{F}), E \in \mathcal{L}(S), d = \operatorname{dim} \mathcal{L}(S), l = l(S)\) но
 	\[m = m^{\prime}(S) = \operatorname{min} \{k | \forall A \in S : A^k \in \mathcal{L}_{k - 1}(S)\}\]
 	Тогда:
-	\[l(S) \leqslant \operatorname{max} \left\{ m, \frac{d}{2} \right\}\]
+	\[l(S) \leqslant \operatorname{max} \left\{ m - 1, \frac{d}{2} \right\}\]
 \end{conseq}
 
 \newpage
@@ -1358,6 +1358,7 @@
 	\item Если \(E \in \mathcal{L}(S)\), то \(S^0 = \{E\}\) - множество скалярных матриц, иначе \(S^0 = \varnothing\)
 	\item \(\mathcal{L}_i(S) = \langle S^{\leqslant i} \rangle\)
 	\item \(\mathcal{L}(S) = \bigcup\limits_{j = 0} \mathcal{L}_j(S)\)
+	\item Пусть \(W, U \in S^k\) - слова из \(k\) букв. Тогда будем обозначать \(W \vdash U\), если \(W\) линейно выражается через \(U\) и слова меньшей длины
 \end{itemize}
 
 \end{document}
