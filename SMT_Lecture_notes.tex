@@ -1187,7 +1187,7 @@
 	\[\operatorname{dim} \mathcal{L}(S) = \operatorname{dim}(\mu_S(t)) \leqslant n\]
 \end{conseq}
 
-\subparagraph{Длина алгебры}
+\subparagraph{Длина множества матриц}
 
 \begin{definition}
 	\(W \in S^{i}\) сократимо, если \(W \in \mathcal{L}_{i - 1}(S)\)
@@ -1299,8 +1299,9 @@
 	Рассмотрим в отдельности 2 случая:
 	\begin{enumerate}
 		\item \(\forall k \in [1, l - 1] : \operatorname{dim} \mathcal{L}_k(S) - \operatorname{dim} \mathcal{L}_{k - 1}(S) \geqslant 2\)
-		\[d = \operatorname{dim} \mathcal{L}(S) = \sum\limits_{i = 0}^{l - 1} \left(\operatorname{dim} \mathcal{L}_{l - i}(S) - \operatorname{dim} \mathcal{L}_{l - i - 1}(S) \right) + \operatorname{dim} \mathcal{L}_{0}(S)\]
-		Каждое из слагаемых в этой сумме, по предположению равно хотя бы двум, кроме первого, которое можно оценить снизу 1, так как иначе длина алгебры была бы равна \(d - 1\), тогда:
+		\[d = \operatorname{dim} \mathcal{L}(S) = \sum\limits_{i = 0}^{l - 1} \left[\operatorname{dim} \mathcal{L}_{l - i}(S) - \operatorname{dim} \mathcal{L}_{l - i - 1}(S) \right] + \operatorname{dim} \mathcal{L}_{0}(S) + \]
+		\[+ (\operatorname{dim} \mathcal{L}_l (S) - \operatorname{dim} \mathcal{L}_{l - 1}(S))\]
+		Каждое из слагаемых в этой сумме, по предположению равно хотя бы двум, кроме двух последних. Предполагаем что \(\mathcal{L}_0\) содержит единицу, и его размерность в таком случе равна 1. Еще одно слагаемое не меньше 1, так в противном случае равенство вложеных пространств достигалось бы на \(l - 1\) шаге, что противоречит тому, что длина равна \(l\). Тогда:
 		\[d \geqslant 1 + 2(l - 1) + 1 = 2l\]
 		
 		\item Теперь рассмотрим оставшийся вариант:
@@ -1338,12 +1339,188 @@
 	\end{itemize}
 \end{proof}
 
-\begin{conseq}
+\begin{conseq}\label{cs7_2}
 	Пусть \(S \subset \operatorname{M}_n(\mathbb{F}), E \in \mathcal{L}(S), d = \operatorname{dim} \mathcal{L}(S), l = l(S)\) но
-	\[m = m^{\prime}(S) = \operatorname{min} \{k | \forall A \in S : A^k \in \mathcal{L}_{k - 1}(S)\}\]
+	\[m = m^{\prime}(S) = \operatorname{min} \{k\ |\ \forall A \in S : A^k \in \mathcal{L}_{k - 1}(S)\}\]
 	Тогда:
 	\[l(S) \leqslant \operatorname{max} \left\{ m - 1, \frac{d}{2} \right\}\]
 \end{conseq}
+
+\newpage
+\section{Восьмая лекция}
+
+\paragraph{Длина алгебры}
+~\\
+
+Пусть \(\mathcal{A}\) - конечнопорождённая, ассоциативная алгебра с единицей. \(S \subseteq \mathcal{A},\ S^0 = \{E\},\ \mathcal{L}_i(S) = \langle S^{\leqslant i} \rangle,\ \mathcal{L}(S) = \bigcup\limits^{\infty} \mathcal{L}_i(S)\)
+
+\(S\) --- система порождающих для алгебры \(\mathcal{A}\), если \(\mathcal{L}(S) = \mathcal{A}\)
+
+Напомним, что \(l(S) = \operatorname{min} \{k\ |\ \mathcal{L}_k(S) = \mathcal{L}(S)\}\)
+
+\begin{definition}
+	Длиной алгебры \(\mathcal{A}\) будем называть \(l(\mathcal{A})\):
+	\[l(\mathcal{A}) = \operatorname{max} \{l(S)\ |\ \mathcal{L}(S) =\mathcal{A}\}\]
+\end{definition}
+
+\begin{note}
+	Пусть \(S\) --- система порождающих алгебры \(\mathcal{A}\), \(S^{\prime}\) --- базис \(\mathcal{L}_1(S)\), содержащий \(E\). Тогда верно:
+	\[\forall i: \mathcal{L}_i(S) = \mathcal{L}_i(S^{\prime})\]
+\end{note}
+
+Согласно этому замечанию, всегда можно считать, что множество \(S \cup \{E\}\) --- линейно независимо и \(\operatorname{dim} \mathcal{L}_1(S) = |S| + 1\).
+
+Так же надо отметить, что функции длины алгебры и длины множества выглядят одинаково, хотя определены по разному.
+
+\paragraph{Длина и однопорождённость}
+
+\begin{lemma}
+	\[l(\mathcal{A}) \leqslant \operatorname{dim} \mathcal{A} - 1\]
+	\[l(\mathcal{A}) = \operatorname{dim} \mathcal{A} - 1 \Leftrightarrow \mathcal{A} \text{ --- однопорождённая}\]
+\end{lemma}
+
+\begin{proof}[Доказательство]
+	Рассмотрим произвольную систему порождающих \(S\). Тогда:
+	\[\langle E \rangle = \mathcal{L}_0(S) \subseteq \mathcal{L}_1(S) \subseteq \dots \subseteq \mathcal{L}(S) = \mathcal{A}\]
+	
+	Тогда в ней, \(\operatorname{dim} \mathcal{L}_0(S) = 1,\ \operatorname{dim} \mathcal{L}_1 (S) \geqslant 2,\ \operatorname{dim} \mathcal{L}_2 (S) \geqslant 3,\ \dots \)
+	\[\operatorname{dim} \mathcal{L}_{\operatorname{dim} \mathcal{A} - 1} (S) \geqslant \operatorname{dim} \mathcal{A} \overset{\mathcal{L(S)} = \mathcal{A}}{\Rightarrow} l(S) \leqslant \operatorname{dim} \mathcal{A} - 1\]
+	
+	Теперь докажем, что данная оценка достигается, и достигается только в случае если \(\mathcal{A}\) порождается одной матрицей.
+	
+	\((\Rightarrow)\) Предположим противное: пусть \(\forall\) системы порождающих \(S: |S| \geqslant 2\), тогда:
+	\[\operatorname{dim} \mathcal{L}_1 (S) \geqslant 3 \Rightarrow \operatorname{dim} \mathcal{L}_{\operatorname{dim} \mathcal{A} - 2} (S) \geqslant \operatorname{dim} \mathcal{A} \Rightarrow l(S) \leqslant \operatorname{dim} \mathcal{A} - 2 \Rightarrow l(\mathcal{A}) \neq \operatorname{dim} \mathcal{A} - 1 \Rightarrow \bot\]
+	
+	\((\Leftarrow)\) \(\mathcal{A}\) порождается одной матрицей. Рассмотрим такую систему порождающих \(S = \{A\}\). Но в таком случае \(\forall i: \exists!\) слово длины \(i\), это слово \(A^i\). Тогда:
+	\[\operatorname{dim} \mathcal{L}_i(S) \leqslant i + 1 \Rightarrow \operatorname{dim} \mathcal{L}_{\operatorname{dim} \mathcal{A} - 2} (S) \leqslant \operatorname{dim} \mathcal{A} - 1 \Rightarrow l(S) \geqslant \operatorname{dim} \mathcal{A} - 1\]
+	В силу произвольности системы порождающих \(S\), можно утвреждать тоже самое и для \(l(\mathcal{A})\).
+	\[ \begin{cases}
+		l(\mathcal{A}) \geqslant \operatorname{dim} \mathcal{A} - 1 \\
+		l(\mathcal{A}) \leqslant \operatorname{dim} \mathcal{A} - 1, & \text{доказано выше для любых алгебр}
+	\end{cases} \Rightarrow l(\mathcal{A}) = \operatorname{dim} \mathcal{A} - 1\]
+\end{proof}
+
+\begin{conseq}
+	Пусть \(\mathcal{A}\) --- некоммутативная алгебра. Тогда \(l(\mathcal{A}) \leqslant \operatorname{dim} \mathcal{A} - 2\).
+\end{conseq}
+
+\begin{example}
+	Пусть:
+	\[\mathcal{A} = \left\{ \left. \left( 
+	\begin{array}{cccc}
+		a&c&d&0\\
+		0&a&c&0\\
+		0&0&a&0\\
+		0&0&0&b
+	\end{array} \right) \right| \substack{a, b,\\ c, d} \in \mathbb{F} \right\}\]
+	Тогда \(l(\mathcal{A}) = 3\).
+\end{example}
+
+\begin{proof}[Решение]
+	Рассмотрим матрицу \(A\) и ее степени. Покажем что любая матрица из \(\mathcal{A}\) выражается через ее степени.
+	\[A = \left( \begin{array}{cccc}
+		0&1&0&0\\
+		0&0&1&0\\
+		0&0&0&0\\
+		0&0&0&1
+	\end{array} \right)
+	A^2 = \left( \begin{array}{cccc}
+		0&0&1&0\\
+		0&0&0&0\\
+		0&0&0&0\\
+		0&0&0&1
+	\end{array} \right)
+	A^3 = \left( \begin{array}{cccc}
+		0&0&0&0\\
+		0&0&0&0\\
+		0&0&0&0\\
+		0&0&0&1
+	\end{array} \right)\]
+	\[\forall B \in \mathcal{A}: B = a(E - A^3) + bA^3 + c(A - A^3) + d(A^2 - A^3)\]
+	Получаем, что \(\mathcal{A}\) порождается \(A \Rightarrow l(\mathcal{A}) = \operatorname{dim} \mathcal{A} - 1 = 3\).
+\end{proof}
+
+\paragraph{Немонотонность длины}
+
+\begin{example}
+	Рассмотрим следующий пример:
+	\[\mathcal{B} = \left\{ \left. \left( 
+	\begin{array}{cccc}
+		a&c&e&0\\
+		0&a&d&0\\
+		0&0&a&0\\
+		0&0&0&b
+	\end{array} \right) \right| \substack{a, b,\\ c, d, e} \in \mathbb{F} \right\}\]
+	Утверждается, что \(l(\mathcal{B}) = 2.\)
+\end{example}
+
+\begin{proof}[Решение]
+	Рассмотрим систему порождающих: \(S = \{E_{12}, E_{23}, E_{44}\}\)\\
+	\(S\) порождает \(\mathcal{B}\), так как 
+	\[\forall B \in \mathcal{B}: B = a(E - E_{44}) + bE_{44} + cE_{12} + dE_{23} + eE_{12}E_{23}\]
+	Однако, \(\operatorname{dim} \mathcal{L}_1 = 4 \Rightarrow l(S) \geqslant 2 \Rightarrow l(\mathcal{B}) \geqslant 2\).
+	Покажем, что \(l(\mathcal{B}) \leqslant 2\). Рассмотрим произвольную систему порождающих \(S\), такую что \(|S| \geqslant 2\):
+	
+	\begin{itemize}
+		\item \(|S| \geqslant 3 \Rightarrow \operatorname{dim} \mathcal{L}_1(S) \geqslant 4 \Rightarrow \operatorname{dim} \mathcal{L}_2 (S) \geqslant 5 = \operatorname{dim} \mathcal{B} \Rightarrow l(S) \leqslant 2\)
+		\item \(|S| = 2: S = \{A, B\} = \)
+		\[ = \left\{ \left( \begin{array}{cccc}
+			\lambda & q & s & 0 \\
+			0 & \lambda & r & 0 \\
+			0 & 0 & \lambda & 0 \\
+			0 & 0 & 0 & p
+		\end{array} \right),
+		\left( \begin{array}{cccc}
+			\mu & y & t & 0 \\
+			0 & \mu & z & 0 \\
+			0 & 0 & \mu & 0 \\
+			0 & 0 & 0 & x
+		\end{array} \right) \right\}\]
+		Тогда покажем, что \(m^{\prime}(S) = \operatorname{min} \left\{ k\ |\ \forall A \in S : A^k \in \mathcal{L}_{k - 1}(S) \right\} \leqslant 3\)
+		\[l \leqslant \operatorname{max} \left\{m^{\prime} - 1, \frac{d}{2}\right\} \text{ - воспользуемся \hyperref[cs7_2]{\textbf{Следствием 10}}}\]
+		\[(A - \lambda E)^2 = qrE_{13} + (x - \lambda)^2 E_{44}\]
+		\[(A - \lambda E)^3 = (x - \lambda)^3 E_{44}\]
+		\[[A - \lambda E, B - \mu E] = (qz -yr)E_{13}\]
+		\[(A - \lambda E)^3 = \underbrace{(x - \lambda)(A - \lambda E)^2}_{\in \mathcal{L}_2(S)} - \underbrace{\frac{(x - \lambda)}{qz - yr} [A - \lambda E, B - \mu E]}_{\in \mathcal{L}_2 (S)} \Rightarrow A^3 \in \mathcal{L}_2(S)\]
+		Это рассуждение опирается на то, что дробь \(\frac{x - \lambda}{qz - yr}\) существует. Покажем что это так:
+		\[qz - yr \neq 0 \text{, так как иначе } [A, B] = [A - \lambda E, B - \mu E] = 0 \text{ и \(\mathcal{B}\) коммутативна}\]
+		Аналогично \(B^3 \in \mathcal{L}_2(S)\), тогда:
+		\[l(S) \leqslant \operatorname{max} \left\{2, \frac{5}{2}\right\} = 2 \Rightarrow l(\mathcal{L}) \leqslant 2\]
+	\end{itemize}
+	
+	Получили что \(l(\mathcal{B}) = 2\).
+\end{proof}
+
+Однако, по построению алгебр из последних двух примеров следует: \(\mathcal{A} \subseteq \mathcal{B}\), но при этом \(l(\mathcal{A}) = 3 > l(\mathcal{B}) = 2\), что показывает что длина алгебры немонотонная функция.
+
+\paragraph{Длина прямой суммы алгебр}
+
+\begin{theorem}
+	Пусть все матрицы алгебры \(\mathcal{A} \subseteq \operatorname{M}_n(\mathbb{F})\) имеют вид:
+	\[A = \left( \begin{array}{c|c}
+		A_{11} & A_{12} \\
+		\hline
+		0 & A_{22}
+	\end{array} \right), \]
+	где \(A_{11} \in \operatorname{M}_k(\mathbb{F})\) и \(A_{22} \in \operatorname{M}_{n - k}(\mathbb{F})\).
+	
+	Тогда: \(l(\mathcal{A}) \leqslant l(\mathcal{A} \left|_{1} \right.) + l((\mathcal{A} \left|_{2} \right.) + 1\).
+\end{theorem}
+
+\begin{proof}[Доказательство]
+	Пусть \(S\) --- произвольная система порождающих.\\
+	\(W = A_1 \dots A_t\) --- произвольное слово длины \(t = l(\mathcal{A} \left|_{1} \right.) + l((\mathcal{A} \left|_{2} \right.) + 2\)
+	\[W_1 = A_1 \dots A_{l(\mathcal{A} \left|_{1} \right.) + 1}\]
+	\[W_2 = A_{l(\mathcal{A} \left|_{1} \right.) + 2} \dots A_t\]
+	\[W = W_1W_2\]
+	\(\forall i = \overline{1, 2} : \) по определению: \(W_{i} \left|_{i} \right. \in \mathcal{A} \left|_{i} \right.\) --- сократимо в \(\mathcal{A} \left|_{i} \right.\), те:
+	\[\exists U_i \in \mathcal{L}_{l(\mathcal{A} \left|_{i} \right.) (S)} : W_i \left|_{i} \right. = U_i \left|_{i} \right. \Rightarrow (W_i - U_i) \left|_{i} \right. = 0\]
+	в \(W_1 - U_1\) первые \(k\) столбцов нулевые\\
+	d \(W_2 - U_2\) последние \(n - k\) строк нулевые\\
+	Таким образом получаем:
+	\[(W_1 - U_1)(W_2 - U_2) = 0 \Rightarrow W = W_1W_2 = \underbrace{W_1U_2}_{\in \mathcal{L}_{t - 1} (S)} + \underbrace{W_2U_1}_{\in \mathcal{L}_{t - 1} (S)} - \underbrace{U_1U_2}_{\in \mathcal{L}_{t - 2} (S)}\]
+	Получаем, что \(W\) --- сократимо \(\Rightarrow l(S) \leqslant t - 1 = l(\mathcal{A} \left|_{1} \right.) + l((\mathcal{A} \left|_{2} \right.) + 1\).
+\end{proof}
 
 \newpage
 \section{Используемые обозначения и соглашения}
